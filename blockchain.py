@@ -42,20 +42,19 @@ class Blockchain():
                 return False
             
             prv_block = block
-	def mine_blocks(test_blockchain):
-    s_time = int(time.time())
-    duration = 10
-    
-    _prv_block = genesis_block
-    
-    while True:
-        _block = block(_prv_block.hash, os.urandom(4))
-        _block.find_nonce(3)
-        test_blockchain.add_block(_block)
-        _prv_block = _block
-        print(".", end='')
-        if int(time.time()) > duration + s_time:
-            break
 
-        
-        return True
+	def mine_blocks(test_blockchain):
+    	s_time = int(time.time())
+    	duration = 10
+    
+    	_prv_block = genesis_block
+    
+    	while True:
+        	_block = block(_prv_block.hash, os.urandom(4))
+        	_block.find_nonce(3)
+        	test_blockchain.add_block(_block)
+        	_prv_block = _block
+        	print(".", end='')
+        	if int(time.time()) > duration + s_time:
+            	break
+

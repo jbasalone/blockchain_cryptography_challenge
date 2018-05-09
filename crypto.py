@@ -29,3 +29,10 @@ while True:
         print n_tries, encoded_msg_digest
         break
 
+def verify_tx_signatures(tx):
+    pubkey = parse_serialized_pubkey(tx.split(b'=======')[3])
+    signature = tx.split(b'=======')[4]
+    data = b'======='.join(tx.split(b'=======')[:3])
+    pubkey.verify(signature, data, ec.ECDSA(hashes.SHA256()))
+    print('OK')
+
