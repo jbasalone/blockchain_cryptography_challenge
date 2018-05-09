@@ -1,12 +1,19 @@
+OLUTION
+
 # SOLUTION
 
-import base64
-from cryptography.hazmat.backends import default_backend
-from cryptography.hazmat.primitives import hashes
 
-class blockchain:
+GENESIS_BLOCK = Block('Pycon 2018 Genesis BLock', '0000000000000000000000000000000000000000000000000000000000000000',b"FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF")
+
+class Blockchain():
     def __init__(self):
         self.blocks = []
+    
+    def __repr__(self):
+        _blocks = []
+        for _block in self.blocks:
+            _blocks.append(str(_block))
+        return "\n\n".join(_blocks)
     
     def add_block(self, block):
         self.blocks.append(block)
@@ -37,10 +44,3 @@ class blockchain:
             prv_block = block
         
         return True
-    
-
-    def __repr__(self):
-        _blocks = []
-        for _block in self.blocks:
-            _blocks.append(str(_block))
-        return "\n\n".join(_blocks)

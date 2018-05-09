@@ -18,14 +18,25 @@ class Block():
         else:
             self.nonce = base64.b16encode(os.urandom(16))
         
-        #hash of hte block header + data
+        
+	def find_hash(self):
+		#hash of hte block header + data
         digest = hashes.Hash(hashes.SHA256(), backend=default_backend())
         digest.update(self.previous_hash)
         digest.update(str.encode(self.timestamp))
         digest.update(self.data)
         digest.update(self.nonce)
         self.hash = base64.b16encode(digest.finalize())
+
+	def find_nonce(self, difficulty):
+		prefix = b'0'*difficulty
+	    while True:
+			self.nonce = os.urandom(16)
+			msg_digest = self.find_hash()
+			if msg_digest.startswith(prefix):
+				self.hash = msg_digest
+				break
     
     def __repr__(self):
         return "PreviousHash: {0}\nTimestamp: {1}\nNonce: {2}\nHash: {3}".format(
-            self.previous_hash, self.timestamp, self.nonce, self.hash)
+            self.previous_hash, self.timestamp, base64.b16encode(self.nonce), self.hash)
