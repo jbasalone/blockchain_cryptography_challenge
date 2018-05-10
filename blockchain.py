@@ -59,16 +59,16 @@ class Blockchain():
         digest.update(private_key.public_key().public_bytes(Encoding.DER, PublicFormat.SubjectPublicKeyInfo))
         return base64.b16encode(digest.finalize())
 
-    def sign_tx(tx, private_key):
+     def sign_tx(tx, private_key):
         return private_key.sign(tx, ec.ECDSA(hashes.SHA256()))
 
-	def serialize_pubkey(publickey):
+     def serialize_pubkey(publickey):
     	serialized_public = publickey.public_bytes(
     	encoding=Encoding.PEM,
     	format=PublicFormat.SubjectPublicKeyInfo)
     
     	return serialized_public
 
-	def parse_serialized_pubkey(serialized_pubkey):
+     def parse_serialized_pubkey(serialized_pubkey):
     	loaded_public_key = serialization.load_pem_public_key(serialized_pubkey, backend=default_backend())
     	return loaded_public_key
