@@ -44,10 +44,10 @@ class Blockchain():
             prv_block = block
 
 	def mine_blocks(test_blockchain):
-    	s_time = int(time.time())
-    	duration = 10
+    	    s_time = int(time.time())
+            duration = 10
     
-    	_prv_block = genesis_block
+            _prv_block = genesis_block
     
     	while True:
         	_block = block(_prv_block.hash, os.urandom(4))
