@@ -1,7 +1,3 @@
-OLUTION
-
-# SOLUTION
-
 
 genesis_block = Block('Pycon 2018 Genesis BLock', '0000000000000000000000000000000000000000000000000000000000000000',b"FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF")
 
@@ -58,3 +54,21 @@ class Blockchain():
         	if int(time.time()) > duration + s_time:
             	break
 
+     def hash_pub_key(private_key):
+        digest = hashes.Hash(hashes.SHA256(), backend=default_backend())
+        digest.update(private_key.public_key().public_bytes(Encoding.DER, PublicFormat.SubjectPublicKeyInfo))
+        return base64.b16encode(digest.finalize())
+
+    def sign_tx(tx, private_key):
+        return private_key.sign(tx, ec.ECDSA(hashes.SHA256()))
+
+	def serialize_pubkey(publickey):
+    	serialized_public = publickey.public_bytes(
+    	encoding=Encoding.PEM,
+    	format=PublicFormat.SubjectPublicKeyInfo)
+    
+    	return serialized_public
+
+	def parse_serialized_pubkey(serialized_pubkey):
+    	loaded_public_key = serialization.load_pem_public_key(serialized_pubkey, backend=default_backend())
+    	return loaded_public_key
